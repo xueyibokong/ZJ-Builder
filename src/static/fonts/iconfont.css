@@ -1,0 +1,43 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1495184247650'); /* IE9*/
+  src: url('iconfont.eot?t=1495184247650#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1495184247650') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1495184247650') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1495184247650#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-facebook:before { content: "\e65a"; }
+
+.icon-linkedin:before { content: "\e660"; }
+
+.icon-Qzone:before { content: "\e662"; }
+
+.icon-QQ:before { content: "\e663"; }
+
+.icon-xinlang:before { content: "\e664"; }
+
+.icon-QQ_weibo:before { content: "\e665"; }
+
+.icon-zhifubao:before { content: "\e666"; }
+
+.icon-taobao:before { content: "\e667"; }
+
+.icon-weichat:before { content: "\e668"; }
+
+.icon-douban:before { content: "\e669"; }
+
+.icon-renren:before { content: "\e66a"; }
+
+.icon-email:before { content: "\e66b"; }
+
+.icon-youku:before { content: "\e66c"; }
+
