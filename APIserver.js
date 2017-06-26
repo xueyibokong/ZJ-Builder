@@ -1,16 +1,31 @@
-var http = require("http")
+var http = require("http"),Url = require('url')
 http.createServer(function(req,res){
     res.writeHead(200,{'Content-Type':'text/plain'})
-    var data = {
-        status : '0',
-        msg : 'ok',
-        data : {
-            name :'zhangjun',
-            age : '24'
-        }
+    var data = {}
+    switch (Url.parse(req.url).path){
+        case '/citylist':
+            data = {
+                status: 0,
+                msg: 'ok',
+                data: {
+                    citylist: [{
+                        "cityId": 1,
+                        "cityName": "北京",
+                        "listName": "lsj"
+                    }, {
+                        "cityId": 2,
+                        "cityName": "上海",
+                        "listName": "cx"
+                    }, {
+                        "cityId": 6738,
+                        "cityName": "象山",
+                        "listName": "xs"
+                    }]
+                }
+            }
+            break;
     }
     res.write(JSON.stringify(data));
-
     res.end();
 
 }).listen(3008);

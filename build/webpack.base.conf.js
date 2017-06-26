@@ -13,7 +13,13 @@ var isProduction = process.env.NODE_ENV === 'production',
 
 var
     baseConf = {
-    entry: jsEntry,
+    entry: (function(){
+        var newJsEntry = {}
+        for(var item in jsEntry){
+            newJsEntry[item] = ['babel-polyfill','console-polyfill',jsEntry[item]]
+        }
+        return newJsEntry
+    })(),
     output: {
         path: path.resolve(__dirname, '../dist'),                                             //对应一个本地绝对路径，此路径是你希望一次性打包的根目录。
         publicPath: isProduction
@@ -40,27 +46,30 @@ var
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',                       //url-loader是对file-loader的上层封装可用于转换图片为base64
+                include: [utils.resolve('../src/static/img')],//指定有效范围是有意控制img在第三方库的出现，尽量保证第三方库引用的是字体图标
                 options: {
                     limit: 10000,                           //转变base64
-                    name: './img/[name].[ext]?[hash]',
+                    name: isProduction ? config.prod.outputFilename.img : config.dev.outputFilename.img,
                     publicPath:isProduction ? config.prod.outputPublicPath.img : config.dev.outputPublicPath.img
                 }
             },
             {
-                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/, //字体图标不指定范围是为了防止第三方库引用字体图标而不被打包
                 loader: 'file-loader',
                 options: {
-                    name: './fonts/[name].[hash:7].[ext]',
+                    limit: 10000,                           //转变base64
+                    name: isProduction ? config.prod.outputFilename.font : config.dev.outputFilename.font,
                     publicPath:isProduction ? config.prod.outputPublicPath.font : config.dev.outputPublicPath.font
                 }
             }
         ]
     },
     resolve: {
-        extensions:['.js','.vue','json'],                   //自动补全
+        extensions:['.js','.vue','.json','.css'],                   //自动补全
         alias: {                                            //别名
             'vue$': 'vue/dist/vue.esm.js',
             '@build' : utils.resolve(''),
+            '@nm':utils.resolve('../node_modules'),
             '@component' : utils.resolve('../src/component'),
             '@mockdata' : utils.resolve('../src/mockdata'),
             '@module' : utils.resolve('../src/module'),
@@ -75,7 +84,7 @@ var
     plugins : [
         /*----------- 多入口node模块部分 -----------*/
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['common'],
+            name: ['vendor'],
             minChunks: function (module) {
                 // 该配置假定你引入的 vendor 存在于 node_modules 目录中
                 return module.context && module.context.indexOf('node_modules') !== -1;
@@ -84,7 +93,7 @@ var
 
         /*----------- 多入口公共部分 -----------*/
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor'],
+            name: ['common'],
             minChunks: 2//被公用2次以上
         }),
 
@@ -92,10 +101,13 @@ var
         new FriendlyErrorsPlugin()
     ]
 }
-baseConf.module.rules = baseConf.module.rules.concat(cssLoaderExtract.cssLoaders)
+baseConf.module.rules = baseConf.module.rules
+    .concat(cssLoaderExtract.cssLoaders)
+    .concat(cssLoaderExtract.privateCssLoaders)
 baseConf.plugins = baseConf.plugins
     .concat(cssLoaderExtract.vueCssExtracts)
     .concat(cssLoaderExtract.cssExtracts)
+    .concat(cssLoaderExtract.privateCssExtracts)
     .concat(HtmlWebpackPlugins())
 
 /*

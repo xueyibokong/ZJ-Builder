@@ -1,0 +1,70 @@
+:root {
+
+}
+[v-cloak]{
+  display: none;
+}
+/* - init - */
+*{
+  -moz-box-sizing: border-box;  /*Firefox3.5+*/
+  -webkit-box-sizing: border-box; /*Safari3.2+*/
+  -o-box-sizing: border-box; /*Opera9.6*/
+  -ms-box-sizing: border-box; /*IE8*/
+  box-sizing: border-box;
+}
+::selection{
+  background: #39BC30;
+  color: #fff;
+}
+body{
+  background: #F7F7F7;
+  font-family: "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, arial, Tahoma, SimSun, sans-serif;
+}
+body,p{
+  margin: 0;
+}
+ul,li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  color:#B6B5B6;
+}
+a:active{
+  color:#B6B5B6;
+}
+a:link{
+  color:#B6B5B6;
+}
+a:visited{
+  color:#B6B5B6;
+}
+
+/* 插件样式调整 */
+.rd-modal-container,.rd-preview-wrapper{
+  z-index: 10;
+}
+.rd-preview-nav-left,.rd-preview-nav-right,.rd-preview-title{
+  display: none!important;
+}
+
+/* 后补公用样式 */
+.handle-btn-disable{
+  position:relative;
+}
+.handle-btn-disable:after{
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top:0;
+}
+.handle-btn-disable span{
+  background: #ccc;
+}

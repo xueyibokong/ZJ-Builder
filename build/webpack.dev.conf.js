@@ -4,9 +4,19 @@ var
     webpackBaseConf = require('./webpack.base.conf'),
     utils = require('./utils'),
     config = require('./config')
-
+    require("babel-polyfill")
+if(config.dev.ismock){
+    var mockdatafiles = []
+    Object.keys(config.dev.proxy).forEach(function (item,index) {
+        item = item.charAt(0) === '/' ? item : '/' + item
+        mockdatafiles.push('./src/mockdata' + item + '.do.js')
+    })
+    Object.keys(webpackBaseConf.entry).forEach(function (name) {
+        webpackBaseConf.entry[name] = mockdatafiles.concat(webpackBaseConf.entry[name])
+    })
+}
 module.exports = merge(webpackBaseConf,{
-    devtool: 'cheap-module-source-map',
+    devtool: 'cheap-module-eval-source-map',
     plugins : [
         new webpack.DefinePlugin({           //此项设置在windows系统上无发生效，兼容方式是利用cross-env模块在cli上设置环境,eg: cross-env NODE_ENV=development
             'process.env': {

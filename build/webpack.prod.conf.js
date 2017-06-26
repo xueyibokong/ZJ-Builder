@@ -5,7 +5,7 @@ var
     config = require('./config')
 
 module.exports = Merge(webpackBaseConf,{
-    devtool: 'eval-source-map',
+    devtool: config.prod.jsSourceMap && 'cheap-module-eval-source-map',
     plugins : [
         new webpack.DefinePlugin({
             'process.env': {
