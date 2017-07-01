@@ -6,8 +6,16 @@ var
     Url = require('url')
 
 var
-    isProduction = process.env.NODE_ENV === 'production'
-
+    isProduction = process.env.NODE_ENV === 'production',
+    postcssConf =  {
+        loader:'postcss-loader',
+        options:{           // 如果没有options这个选项将会报错 No PostCSS Config found
+            plugins: (loader) => [
+                require('autoprefixer'),
+                require('postcss-px2rem')({remUnit: 75})
+            ]
+        }
+    }
 //设置相对当前文件路径的绝对路径
 exports.resolve = function (dir){
     return path.join(__dirname,dir);
@@ -48,7 +56,8 @@ exports.cssLoaderExtract = function(){
         })
         //到二次循环是为了利用没个抽取对象配置loader
         loaderType.forEach(function(item,index){
-            var use = (item === 'css' || item === 'postcss') ? ['css-loader'] : ['css-loader',(item === 'scss' ? 'sass' : item) + '-loader']
+            var use = (item === 'css' || item === 'postcss') ? ['css-loader'] : ['css-loader',(item === 'scss' ? 'sass' : item) + '-loader'],
+                use1 = (item === 'css' || item === 'postcss') ? ['css-loader',postcssConf] : ['css-loader',postcssConf,(item === 'scss' ? 'sass' : item) + '-loader']
             Object.assign(vueCssLoaders,{
                 [item] : vueCssExtracts[index].extract({
                     use: use,
@@ -60,7 +69,7 @@ exports.cssLoaderExtract = function(){
                 test : new RegExp('\\.' + item + '$'),
                 include: path.join(__dirname,'../src/static'),
                 use : cssExtracts[index].extract({
-                    use: use,
+                    use: use1,
                     fallback: 'style-loader',
                     publicPath : isProduction ? config.prod.outputPublicPath.css : config.dev.outputPublicPath.css
                 })
@@ -69,7 +78,7 @@ exports.cssLoaderExtract = function(){
                 test : new RegExp('\\.' + item + '$'),
                 include: path.join(__dirname,'../src/module'),
                 use : privateCssExtracts[index].extract({
-                    use: use,
+                    use: use1,
                     fallback: 'style-loader',
                     publicPath : isProduction ? config.prod.outputPublicPath.css : config.dev.outputPublicPath.css
                 })
@@ -105,7 +114,7 @@ exports.cssLoaderExtract = function(){
                 loader : 'style-loader'
             },{
                 loader : 'css-loader'
-            }]
+            },postcssConf]
             item === 'css' || item === 'postcss' ? loaders : loaders.push({loader:(item === 'scss' ? 'sass' : item)+'-loader'})
             cssLoaders.push({
                 test : new RegExp('\\.' + item + '$'),
@@ -113,7 +122,6 @@ exports.cssLoaderExtract = function(){
             })
         })
     }
-
     return {
         vueCssExtracts,
         cssExtracts,

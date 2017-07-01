@@ -146,13 +146,13 @@
 </script>
 
 <style lang="scss">
-    $unitHeight : 44px;
-    $fontSize : 17px;
-    $lineHeight : $fontSize + 20px;
+    $unitHeight : 180px;
+    $fontSize : 26px;
+    $lineHeight : $fontSize + 150px;
     $borderColor : #ccc;
     $hoverColor:#ededed;
     $activeColor:#cdcdcd;
-    $padding:15px;
+    $padding:45px;
     $letterSpacing:2px;
     .select-list {
         width: 100%;
@@ -177,9 +177,9 @@
         display: block;
         width: 0px;
         height: 0px;
-        border-left:12px solid #aaaaaa;
-        border-bottom:8px solid transparent;
-        border-top:8px solid transparent;
+        border-left:36px solid #aaaaaa;
+        border-bottom:24px solid transparent;
+        border-top:24px solid transparent;
         position: absolute;
         right: 0;
         top:$unitHeight/2;
@@ -215,7 +215,7 @@
     }
     .inner-select,.top-select{
         width: 100%;
-        max-height: 260px;
+        max-height: 780px;
         overflow: auto;
         display:none;
     }

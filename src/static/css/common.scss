@@ -1,10 +1,16 @@
-:root {
 
+/* - reset - */
+
+@charset "utf-8";
+
+html, body, h1, h2, h3, h4, h5, h6, div, dl, dt, dd, ul, ol, li, p, table, th, td, form, input, button,span,i,em,a,b,strong {
+    font: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
-[v-cloak]{
-  display: none;
-}
-/* - init - */
+
 *{
   -moz-box-sizing: border-box;  /*Firefox3.5+*/
   -webkit-box-sizing: border-box; /*Safari3.2+*/
@@ -12,59 +18,104 @@
   -ms-box-sizing: border-box; /*IE8*/
   box-sizing: border-box;
 }
+
+body{
+  background: #fff;
+  font: 14px/1.5 "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", arial, Tahoma, SimSun, sans-serif;
+}
+
+
 ::selection{
   background: #39BC30;
   color: #fff;
 }
-body{
-  background: #F7F7F7;
-  font-family: "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, arial, Tahoma, SimSun, sans-serif;
-}
+
 body,p{
   margin: 0;
 }
+
 ul,li{
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
-a{
-  text-decoration: none;
-}
-a:hover{
-  color:#B6B5B6;
-}
-a:active{
-  color:#B6B5B6;
-}
-a:link{
-  color:#B6B5B6;
-}
-a:visited{
-  color:#B6B5B6;
+
+
+img {
+    border: 0;
+    font-size: 0;
+    vertical-align: top;
 }
 
-/* 插件样式调整 */
-.rd-modal-container,.rd-preview-wrapper{
-  z-index: 10;
-}
-.rd-preview-nav-left,.rd-preview-nav-right,.rd-preview-title{
-  display: none!important;
+input,button{
+    outline:none;
 }
 
-/* 后补公用样式 */
-.handle-btn-disable{
-  position:relative;
+table {
+    border-collapse: collapse;
 }
-.handle-btn-disable:after{
-  content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top:0;
+
+
+i {
+    font-style: normal;
 }
-.handle-btn-disable span{
-  background: #ccc;
+
+a, button {
+    cursor: pointer;
+    background: none;
+    //color:#aaa;
 }
+
+strong, b {
+    font-weight: bold;
+}
+
+h2, h3, h4, h5, h6 {
+    font-weight: bold
+}
+
+a, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+/* 字体图标 */
+
+@font-face {font-family: "iconfont";
+  src: url('../font/iconfont.eot?t=1498789333898'); /* IE9*/
+  src: url('../font/iconfont.eot?t=1498789333898#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../font/iconfont.woff?t=1498789333898') format('woff'), /* chrome, firefox */
+  url('../font/iconfont.ttf?t=1498789333898') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../font/iconfont.svg?t=1498789333898#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+

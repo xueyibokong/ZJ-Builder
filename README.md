@@ -3,6 +3,7 @@
     .
     ├── build..............................【环境依赖】
     │   ├── config.js......................【项目自定义配置项】
+    │   ├── css-publicpath-reset.js........【解决css的cdn路径的webpack小插件】
     │   ├── utils.js.......................【webpack配置所需方法】
     │   ├── webpack.base.conf.js...........【webpack配置】
     │   ├── webpack.dev.conf.js............【webpack开发环境配置】
@@ -138,17 +139,20 @@
     cdn路径配置项：config.prod.outputPublicPath
     ajax是否去掉协议头：config.prod.deleteRequestHeader (true：删除，false：保留)
 ## bug
-    1、【待解决】htmlWebpackPlagin插件无法将cssLoader的publiacPath进行替换，目前解决方法是手动替换编译后
-    的html模板中css的CDN路径进行替换。
+    
 ## Tips
-    1、在一个bundle中只能使用（css|less|sass|postcss）其中的一种，多种无法混合打包。（一个bundle指[name].css||common.css||vonder.css）
+    1、在一个bundle中只能使用（css|less|sass）其中的一种，多种无法混合打包。（一个bundle指[name].css||common.css||vonder.css）
     2、css引用需要注意，src/static/css下的css文件会被打包到common.css中，一般在开发中规定这么引用css：
         (1) 如果是vue开发，每个单页需要的独有css则写在.vue组件当中（或根组件中，语言不限制），需要多个单页公用的css则可以写在src/static/css
         目录下（文件个数和语言不限），需要引用的npm插件的css则直接引用（将打包在vonder.css中）。
         (2) 如果是普通开发，每个单页需要的独有css则写在src/module/**下（文件个数和语言不限），需要多个单页公用的css则可以写在src/static/css
         目录下（文件个数和语言不限），需要引用的npm插件的css则直接引用（将打包在vonder.css中）。
-    3、一个文件代表对应着一个接口，mock数据可以按照mockjs规范书写
-    4、**别名**可以方便开发过程中对文件夹的定位，不需要像'../../'这样的找相对路径.注意别名的应用只适合于模块引用
+    3、postcss的应用，vue中的style部分和外部引用style文件都实现了postcss编译，目前框架配置了两个postcss的插件：
+        （1）自动补充前缀autoprefixer
+        （2）px换算为rem，'postcss-px2rem'
+        如果有需求则可以在build/utils.js文件中修改postcssConf字段
+    4、一个文件代表对应着一个接口，mock数据可以按照mockjs规范书写
+    5、**别名**可以方便开发过程中对文件夹的定位，不需要像'../../'这样的找相对路径.注意别名的应用只适合于模块引用
        的方法，如果想在src或css的url里用别名引用则需在别名前加'~'符号，表示按模块加载，另外还需注意如果想在js中引用静态
        资源（如：img、iconfont、svg等等）则需要用require、或import引用，如下：
 ```ecmascript 6

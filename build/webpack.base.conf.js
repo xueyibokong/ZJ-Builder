@@ -4,6 +4,8 @@ var
     utils = require('./utils'),
     config = require('./config'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
+    autoprefixer = require('autoprefixer'),
+    px2rem = require('postcss-px2rem'),
     FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')//error排序输出，友好的报错日志
 
 var isProduction = process.env.NODE_ENV === 'production',
@@ -98,8 +100,16 @@ var
         }),
 
         /*-------------控制台输出提示美化--------------*/
-        new FriendlyErrorsPlugin()
+        new FriendlyErrorsPlugin(),
+
+        new webpack.LoaderOptionsPlugin({
+            vue: {
+                // 使用用户自定义插件
+                postcss: [require('autoprefixer')(),require('postcss-px2rem')({remUnit: 75})]
+            }
+        })
     ]
+
 }
 baseConf.module.rules = baseConf.module.rules
     .concat(cssLoaderExtract.cssLoaders)

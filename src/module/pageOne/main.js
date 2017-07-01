@@ -1,7 +1,9 @@
 import '@static/css/common.scss'
+import '@static/css/test.scss'
 import './index.css'
-
+import $ from 'jquery'
 import Api from  'Api'
+
 Api({
     method:'post',
     url:'citylist',

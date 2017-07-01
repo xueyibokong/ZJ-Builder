@@ -1,7 +1,7 @@
 {
   "name": "webpacktest",
   "version": "1.0.0",
-  "description": "冲返配置后台",
+  "description": "多页面脚手架",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.conf.js",
@@ -13,8 +13,10 @@
   "dependencies": {
     "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
+    "babel-runtime": "^6.23.0",
     "console-polyfill": "^0.2.3",
     "deep-diff": "^0.3.8",
+    "jquery": "^1.12.4",
     "querystring": "^0.2.0",
     "radon-ui": "^0.5.3",
     "vue": "^2.2.6",
@@ -22,6 +24,7 @@
     "vuex": "^2.3.1"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -44,6 +47,7 @@
     "node-sass": "^4.5.3",
     "postcss": "^6.0.1",
     "postcss-loader": "^2.0.5",
+    "postcss-px2rem": "^0.3.0",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",

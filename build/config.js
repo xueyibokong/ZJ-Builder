@@ -19,7 +19,7 @@ module.exports =  {
         /*------------ WDS服务器配置 -----------*/
         server :{
             port : 3003,
-            open : false
+            open : true
         },
         /*------------ 前端服务（WDS）代理请求后端服务 ------------*/
         proxy : {
