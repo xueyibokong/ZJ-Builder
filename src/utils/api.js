@@ -7,19 +7,25 @@ const
 axios.defaults.paramsSerializer = function(params) {
     return Qs.stringify(params)
 }
-//修改axios请求体的默认配置，此项修改是为了解决axios把上送的json参数转为json字符串的BUG
-axios.defaults.transformRequest = [(data)=>{
-    //如果后端服务规定接受Form Data类型的请求参，则需走此判断
-    if(config.prod.requestType == 'formData'){
+//解决跨域cookie
+axios.defaults.withCredentials = true
+axios.defaults.crossDomain =  true
+//如果后端服务规定接受Form Data类型的请求参，则需走此判断
+if(config.prod.requestType == 'formData'){
+    //修改axios请求体的默认配置，此项修改是为了解决axios把上送的json参数转为json字符串的BUG
+    axios.defaults.transformRequest = [(data)=>{
         if(!isProduction && config.dev.ismock){
             return data
         }else{
+            for(let item in data) {
+                if (typeof data[item] === 'object'){
+                    data[item] = JSON.stringify(data[item])
+                }
+            }
             return Qs.stringify(data)
         }
-    }else{
-        return data
-    }
-}]
+    }]
+}
 export default (param) => {
     var
         url = param.url.charAt(0) === '/' ? param.url : '/' + param.url,
@@ -44,11 +50,12 @@ export default (param) => {
     return axios(param)
 }
 /*
-* @_searchParam
-*
-* 此方法用来匹配Api请求参与配置的mockdata数据对应的请求参
-* */
+ * @_searchParam
+ *
+ * 此方法用来匹配Api请求参与配置的mockdata数据对应的请求参
+ * */
 export let _searchParam = (diff,option,mockdata) => {
+    option.body = typeof option.body !== 'object' ? eval('('+option.body+')') : option.body
     if(mockdata instanceof Array && mockdata.length == 1){
         return mockdata[0]._resBody || mockdata[0]
     }else if(mockdata instanceof Array && mockdata.length > 1){
