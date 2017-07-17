@@ -17,6 +17,7 @@ if(config.prod.requestType == 'formData'){
         if(!isProduction && config.dev.ismock){
             return data
         }else{
+            //formdata类型的数据在遇到多维数组或对象时将第2维数据用JSON.stringify转换，防止数据的上送丢失
             for(let item in data) {
                 if (typeof data[item] === 'object'){
                     data[item] = JSON.stringify(data[item])

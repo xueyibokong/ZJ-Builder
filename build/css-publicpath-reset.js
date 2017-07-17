@@ -8,7 +8,6 @@ function CssPbulicPathReset (opts){
 CssPbulicPathReset.prototype.apply = function(compiler) {
     // 设置回调来访问编译对象：
     compiler.plugin("emit", function(compilation,callback) {
-        console.log(compilation)
         var files = [],htmls = []
         for (var filename in compilation.assets) {
             if(/.html$/.test(filename)){
