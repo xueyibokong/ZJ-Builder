@@ -1,7 +1,7 @@
 <template>
     <div class="select-list"
          :class="isunfold ? 'select-list-isunfold' : ''">
-        <input type="text"  @focusin="searchFocus" :disabled="myDisabled" @focusout="searchBlur" class="search" :placeholder="myPlaceholder" v-model="inputValue" :value="inputValue">
+        <input type="text"  @focusin="searchFocus" :disabled="myDisabled" @focusout="searchBlur" class="search" :placeholder="myPlaceholder" v-model="inputValue">
         <ul class="inner-select"
             :class="isunfold&&isall ? 'isunfold' : ''">
             <li class="option" @mousedown="select" v-for="item in myData.selectList.list" :value="item[myData.optionMap.value]">

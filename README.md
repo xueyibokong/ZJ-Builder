@@ -28,7 +28,7 @@
     ├── APIserver.js.......................【node服务】
     └── package.json.......................【npm配置】
 ## 安装依赖： 
-    $ npm install
+    $ npm install 注意：macOS 建议将node版本控制在v6.**.**
 ## npm任务：
 ### 启动 webpack-dev-server 进入开发环境
     $ npm start 或 npm run dev
