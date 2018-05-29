@@ -5,3 +5,5 @@ yarn-debug.log*
 yarn-error.log*
 selenium-debug.log
 .idea/
+.vscode/
+.DS_Store
