@@ -1,3 +1,4 @@
+'use strict';
 var
     path = require('path'),
     config = require('./config'),
@@ -12,7 +13,7 @@ var
         options:{           // 如果没有options这个选项将会报错 No PostCSS Config found
             plugins: (loader) => [
                 require('autoprefixer'),
-                require('postcss-px2rem')({remUnit: 75})
+                // require('postcss-px2rem')({remUnit: 75})
             ]
         }
     }
@@ -185,7 +186,7 @@ exports.proxyTalbe = {
 var fs = require('fs')
 function MkMockdata(apiConf){
     var dir = path.join(__dirname,'../src/mockdata')
-    for(var key in apiConfig){
+    for(let key in apiConfig){
         var file = dir + key + '.do.js'
         //判断是否已经有mockdata文件
         if(!fs.existsSync(file)){
@@ -207,6 +208,8 @@ Mock.mock(${'"' + [apiConfig[key]]+'"'}, function(option){
             let readStream = fs.createReadStream(file),data = '',apiConfigItem = apiConfig[key],innerFile = file
             readStream.on('data', function(chunk) {
                 data += chunk;
+            })
+            readStream.once('close', function() {
                 if(data.match(/Mock\.mock\(\"(\S*)\",\s{0,}function/)[1] != apiConfigItem){
                     //证明此文件对应接口修改了
                     let str = data.match(/Mock\.mock\(\"(\S*)\",\s{0,}function/)[1]
@@ -219,4 +222,3 @@ Mock.mock(${'"' + [apiConfig[key]]+'"'}, function(option){
     }
 }
 if(ismock) MkMockdata(apiConfig)
-
